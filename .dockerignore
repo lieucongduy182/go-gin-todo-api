@@ -1,0 +1,29 @@
+# Binaries
+bin/
+tmp/
+*.exe
+*.test
+
+# Build cache
+*.out
+*.log
+
+# Git
+.git
+.gitignore
+
+# Local configs
+.env
+.env.*
+.air.toml
+
+# Node or frontend
+node_modules/
+
+# IDE / Editor
+.vscode/
+.idea/
+
+# Docker
+docker-compose.yml
+Dockerfile
