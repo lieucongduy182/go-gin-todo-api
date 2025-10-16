@@ -20,6 +20,6 @@ type CreateTaskInput struct {
 
 type UpdateTaskInput struct {
 	Title       string `json:"title" binding:"omitempty,min=1,max=255"`
-	Description string `json:"description" binding:"omitemptyu,max=1000"`
+	Description string `json:"description" binding:"omitempty,max=1000"`
 	Completed   *bool  `json:"completed" binding:"omitempty"`
 }
