@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/lieucongduy182/go-gin-todo-api/config"
+	"github.com/lieucongduy182/go-gin-todo-api/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -28,6 +29,14 @@ func Connect() {
 	if err != nil {
 		log.Fatal("Failed to connect to database", err)
 	}
+
+	fmt.Println("✅ Connected to Database!")
+	// Migrate the schema
+	if err := DB.AutoMigrate(&models.User{}, &models.Task{}); err != nil {
+		log.Fatal("Failed to migrate database", err)
+	}
+
+	fmt.Println("✅ Database migrated successfully!")
 }
 
 func GetDB() *gorm.DB {
