@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/lieucongduy182/go-gin-todo-api/config"
 	"github.com/lieucongduy182/go-gin-todo-api/database"
+	"github.com/lieucongduy182/go-gin-todo-api/routes"
 )
 
 func main() {
@@ -37,7 +38,8 @@ func main() {
 
 	router.GET("/health", healthCheck)
 
-	// API v1 group
+	// setup routes
+	routes.SetupRoutes(router)
 
 	serverAddr := ":" + config.AppConfig.ServerPort
 	log.Printf("Server starting on port %s", config.AppConfig.ServerPort)
