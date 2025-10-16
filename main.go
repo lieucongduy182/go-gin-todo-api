@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/lieucongduy182/go-gin-todo-api/config"
 	"github.com/lieucongduy182/go-gin-todo-api/database"
+	"github.com/lieucongduy182/go-gin-todo-api/middleware"
 	"github.com/lieucongduy182/go-gin-todo-api/routes"
 )
 
@@ -35,6 +36,7 @@ func main() {
 
 		c.Next()
 	})
+	router.Use(middleware.CustomLogger())
 
 	router.GET("/health", healthCheck)
 
