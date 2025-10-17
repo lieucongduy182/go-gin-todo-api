@@ -1,20 +1,18 @@
 version: '3.8'
 
 services:
-  app:
-    container_name: go-gin-todo-api
-    build: 
-      context: .
-      dockerfile: Dockerfile
+  db:
+    container_name: go-postgres
+    image: postgres:15-alpine
     ports:
-      - "8080:8080"
-    volumes:
-      - .:/app
-      - go-cache:/go
+      - '5432:5432'
     environment:
-      - GO_ENV=development
-    command: air
-    restarts: unless-stopped
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=todo_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
 
 volumes:
-  go-cache:
+  postgres_data:
