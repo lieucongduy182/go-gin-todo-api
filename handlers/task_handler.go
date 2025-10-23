@@ -39,7 +39,7 @@ func GetTask(c *gin.Context) {
 
 func CreateTask(c *gin.Context) {
 	userID := c.MustGet("userID").(uint)
-	var input models.CreateTaskInput
+	var input models.CreateTaskRequest
 
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -65,7 +65,7 @@ func UpdateTask(c *gin.Context) {
 	userID := c.MustGet("userID").(uint)
 	taskID := c.Param("id")
 
-	var input models.UpdateTaskInput
+	var input models.UpdateTaskRequest
 	if err := c.ShouldBindJSON(&input); err != nil {
 		log.Default().Printf("Error %s", err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
