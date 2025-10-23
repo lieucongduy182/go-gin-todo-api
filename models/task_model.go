@@ -22,14 +22,18 @@ type Task struct {
 }
 
 type CreateTaskRequest struct {
-	Title       string `json:"title" binding:"required,min=1,max=255"`
-	Description string `json:"description"`
+	Title       string     `json:"title" binding:"required,min=1,max=255"`
+	Description string     `json:"description"`
+	Priority    string     `json:"priority"`
+	DueDate     *time.Time `json:"due_date"`
 }
 
 type UpdateTaskRequest struct {
-	Title       string `json:"title" binding:"omitempty,min=1,max=255"`
-	Description string `json:"description" binding:"omitempty,max=1000"`
-	Completed   *bool  `json:"completed" binding:"omitempty"`
+	Title       string     `json:"title" binding:"omitempty,min=1,max=255"`
+	Description string     `json:"description" binding:"omitempty,max=1000"`
+	Completed   *bool      `json:"completed" binding:"omitempty"`
+	Priority    string     `json:"priority" binding:"omitempty,oneof=low medium high"`
+	DueDate     *time.Time `json:"due_date"`
 }
 
 type TaskResponse struct {
@@ -50,4 +54,18 @@ type PaginationResponse struct {
 	Page       int         `json:"page"`
 	PageSize   int         `json:"page_size"`
 	TotalPages int64       `json:"total_pages"`
+}
+
+func (t *Task) ToResponse() TaskResponse {
+	return TaskResponse{
+		ID:          t.ID,
+		UserID:      t.UserID,
+		Title:       t.Title,
+		Description: t.Description,
+		Completed:   t.Completed,
+		Priority:    t.Priority,
+		DueDate:     t.DueDate,
+		CreatedAt:   t.CreatedAt,
+		UpdatedAt:   t.UpdatedAt,
+	}
 }

@@ -13,7 +13,7 @@ type TaskRepository interface {
 	GetByUserId(userID uint) (*[]models.Task, error)
 	GetByUserIdPaginated(userID uint, page, pageSize int) ([]*models.Task, int64, error)
 	Search(userID uint, keyword string) ([]*models.Task, error)
-	GetByStatus(userID uint, status string) ([]*models.Task, error)
+	GetByStatus(userID uint, status bool) ([]*models.Task, error)
 	GetByPriority(userID uint, priority string) ([]*models.Task, error)
 	Update(task *models.Task) error
 	Delete(id, userID uint) error
@@ -91,7 +91,7 @@ func (t *taskRepository) GetByPriority(userID uint, priority string) ([]*models.
 }
 
 // GetByStatus implements TaskRepository.
-func (t *taskRepository) GetByStatus(userID uint, status string) ([]*models.Task, error) {
+func (t *taskRepository) GetByStatus(userID uint, status bool) ([]*models.Task, error) {
 	var task []*models.Task
 
 	if err := t.db.Where("user_id = ? AND completed = ?", userID, status).
